@@ -194,11 +194,18 @@
 
     <h1> - 矩形 - </h1>
     <?php
-    for ($i=1;$i<=7;$i++){
-        if ($i==1 || $i%7==0){
+    $n=7;
+    for ($i=1;$i<=$n;$i++){
+        if ($i==1 || $i==7){
             echo "*******";
         } else {
-            echo "*&nbsp&nbsp&nbsp&nbsp&nbsp*";
+            for ($j=1; $j<=$n; $j++){
+                if ($j==1 || $j==$n){
+                    echo "*";
+                } else {
+                    echo "&nbsp";
+                }
+            }
         }
         echo "<br>";
     }
