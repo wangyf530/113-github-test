@@ -119,7 +119,10 @@
 
     <h1> - 菱形 - </h1>
     <?php
-    $n=7;
+    $n=11;
+    if ($n<2 || $n%2==0){
+        $n++;
+    }
     $nn=floor($n/2);
     $temp=0;
     for ($i=0; $i<$n; $i++) {
@@ -165,6 +168,26 @@
         }
         for ($j=0; $j<$j1; $j++){
             echo "*";
+        }
+        echo "<br>";
+    }
+
+    echo "<h3>自己想的</h3>";
+    $n=7;
+    $nn=floor($n/2);
+    $count=floor($n/2);
+    for($i=0; $i<$n; $i++){
+        if ($i<$nn){
+            $count--;
+        } else {
+            $count++;
+        }
+        for ($j=0; $j<$n; $j++){
+            if ($j<$count){
+                echo "&nbsp";
+            } else if ($j <= $nn+$i) {
+                echo "*";
+            } 
         }
         echo "<br>";
     }
@@ -235,6 +258,58 @@
         }
         echo "<br>";
     }
+
+    ?>
+
+<h1> - 菱形2 對角線 - </h1>
+    <?php
+    $n=21;
+    if ($n%2==1){
+        for ($i=0;$i<$n;$i++){
+            for ($j=0; $j<$n; $j++){
+                if ($i==floor($n/2) || $j==floor($n/2)) {
+                    echo "*";
+                } else if (($i+$j)%($n-1)==floor($n/2) || abs($j-$i)==floor($n/2)){
+                    echo "*";
+                /* } else if ($j==(floor($n/2)+$i) || $j==(floor($n/2)-$i)){
+                    echo "*"; */
+                } else {
+                    echo "&nbsp";
+                }
+            }
+            echo "<br>";
+        }
+    } else {
+        echo "must be an odd integer!";
+    }
+
+    
+    echo "<h2> 老師上課教的</h2>";
+    for($i=0; $i<$n; $i++) {
+        if($i>floor($n/2)){
+            $k1= $i-(floor($n/2));
+            $j1= 2*($i-(2*($i-floor($n/2))))+1;
+        } else {
+            $k1= (floor($n/2))-$i;
+            $j1= 2*$i+1;
+        }
+
+        for($k=0;$k<$k1;$k++){
+            echo "&nbsp";
+        }
+
+        for ($j=0; $j<$j1; $j++){
+            /* if($i==(floor($n/2)) || $j==(floor($n/2)) || abs($i-$j)==(floor($n/2)) || ($i+$j)%($n-1) == (floor($n/2))) { */
+            if ($j==0 || $j==$j1-1 || $i==(floor($n/2)) || $j==($j1-1)/2){
+                echo "*";
+            } else {
+                echo "&nbsp";
+            }
+        }
+        echo "<br>";
+    }
+
+
     ?>
 
 
