@@ -173,21 +173,25 @@
     }
 
     echo "<h3>自己想的</h3>";
-    $n=7;
+    $n=13;
     $nn=floor($n/2);
-    $count=floor($n/2);
+    $star=0;
+    $space=ceil($n/2);
     for($i=0; $i<$n; $i++){
         if ($i<$nn){
-            $count--;
+            $star=2*$i+1;
+            $space--;
         } else {
-            $count++;
+            $star-=2;
+            $space++;
         }
         for ($j=0; $j<$n; $j++){
-            if ($j<$count){
+            if ($j<$space){
                 echo "&nbsp";
-            } else if ($j <= $nn+$i) {
-                echo "*";
-            } 
+            }
+        }
+        for ($k=0;$k<$star;$k++){
+            echo"*";
         }
         echo "<br>";
     }
