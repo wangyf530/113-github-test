@@ -196,11 +196,13 @@
     <?php
     $n=7;
     for ($i=1;$i<=$n;$i++){
-        if ($i==1 || $i==7){
-            echo "*******";
+        if ($i==1 || $i==$n){ //只在第一跟最後
+            for ($j=1; $j<=$n; $j++){
+                echo "*";
+            }
         } else {
             for ($j=1; $j<=$n; $j++){
-                if ($j==1 || $j==$n){
+                if ($j==1 || $j==$n){ //只在第一跟最後
                     echo "*";
                 } else {
                     echo "&nbsp";
@@ -212,13 +214,24 @@
     ?>
 
 
-    <h1> - 矩形2 - </h1>
+    <h1> - 矩形2 對角線 - </h1>
     <?php
-    for ($i=1;$i<=7;$i++){
-        if ($i==1 || $i%7==0){
-            echo "*******";
+    $n=7;
+    for ($i=1;$i<=$n;$i++){
+        if ($i==1 || $i==$n){ //只在第一跟最後
+            for ($j=1; $j<=$n; $j++){
+                echo "*";
+            }
         } else {
-            echo "*&nbsp&nbsp&nbsp&nbsp&nbsp*";
+            for ($j=1; $j<=$n; $j++) {
+                if($j==1 || $j==$n) { //只在第一跟最後
+                    echo "*";
+                } else if ($j==$n-$i+1 || $j==$i) { //可以往上合併
+                    echo "*";
+                } else {
+                    echo "&nbsp";
+                }
+            }
         }
         echo "<br>";
     }
