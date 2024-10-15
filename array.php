@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>陣列</title>
 </head>
+
+<style>
+    table{
+        border-collapse:collapse;
+    }
+    td {
+        padding:6px 10px;
+        text-align:center;
+        border:1px solid #ccc;
+    }
+
+</style>
+
 <body>
 
 <h3>直接輸入</h3>
@@ -83,34 +96,10 @@ $hebe=['hebe','71','62','80','62','64'];
 $students=[$judy,$amo,$john,$peter,$hebe];
 ?>
 
-<style>
-    table{
-        border-collapse:collapse;
-    }
-    .multiple{
-        border-collapse:collapse;
-        margin:20px;
-        border:1px solid blue;
-    }
-    .multiple td{
-        border:1px solid #aaa;
-        width:100px;
-        height:30px;
-        text-align:center;
-    }
-    /* 下面的子元素第幾個 */
-    .multiple tr:nth-child(1),
-    .multiple td:nth-child(1){ 
-        background:blue;
-        color:white;
-    }
-
-</style>
-
+<h3>first try - 每個學生都用一個foreach</h3>
 <table>
 <tr>
 <?php
-echo"<table class='multiple' border='1'>";
     foreach($header as $value){
         echo "<td>{$value}</td>";
     }
@@ -151,9 +140,9 @@ echo"<table class='multiple' border='1'>";
     }
 ?>
 </tr>
+</table>
 
-
-
+<h3>second try - 把名字拉出來</h3>
 <table>
 <?php
 /* $judy=['judy'=>'95','64','70','90','84'];
@@ -161,6 +150,12 @@ $amo=['amo'=>'88','78','54','81','71'];
 $john=['john'=>'45','60','68','70','62'];
 $peter=['peter'=>'59','32','77','54','42'];
 $hebe=['hebe'=>'71','62','80','62','64']; */
+$stus=['judy'=>['95','64','70','90','84'],
+       'amo'=>['88','78','54','81','71'],
+       'john'=>['45','60','68','70','62'],
+       'peter'=>['59','32','77','54','42'],
+       'hebe'=>['71','62','80','62','64']];
+           
     echo "<tr>";
     foreach($header as $value){
         echo "<td>{$value}</td>";
@@ -174,7 +169,7 @@ $hebe=['hebe'=>'71','62','80','62','64']; */
         echo "</tr>";
     } */
 
-    foreach ($students as $name => $student) {
+    foreach ($stus as $name => $student) {
         echo "<tr>";
         echo "<td>";
         echo $name;
@@ -191,10 +186,10 @@ $hebe=['hebe'=>'71','62','80','62','64']; */
 
 
 
-
+<h3>final try - 合併在一個array後 (已give up)</h3>
 <?php
 
-    $score =[
+    $stus2 =[
         'judy'=>[
                 ['國文'=>95],
                 ['英文'=>64],
@@ -231,19 +226,36 @@ $hebe=['hebe'=>'71','62','80','62','64']; */
                 ['歷史'=>64]
                 ]
             ];
-    $temp=$score; //call by value
-    $key=array_keys($score)[0];
-    $keys=array_keys($score); //保留所有學生名字
-    $first=array_shift($score);
+    $temp=$stus2; //call by value
+    //echo "<pre>";
+    //print_r($stus2); //php內建的 但默認是亂碼
+    //echo "</pre>"; //讓標籤內的內容保持原本的格式
+    $keys=array_keys($stus2); //保留所有學生名字
+    $first=array_shift($stus2);
     //先把第一筆資料移出來 key-judy 拿出來國文-分數這部分
     $header = array_keys($first);
     array_unshift($header,"學生");
-    echo "<pre>";
-    print_r($header); //php內建的 但默認是亂碼
-    echo "</pre>"; //讓標籤內的內容保持原本的格式
-    array_unshift($score,$first);
+    // array_unshift($score,$first);
     //$score[$key]=$first; //這樣judy會在最後面
-    
     ?>
+
+
+<table>
+    <?php
+    /* echo "<tr>";
+    foreach($header as $value){
+        echo "<td>{$value}</td>";
+    }
+    echo"</tr>";
+    foreach($stus2 as $name => $student){
+        echo "<tr>";
+        echo "<td>";
+        foreach ($tmp as $score){
+            echo "<td> {$score} </td>";
+        }
+        echo "</td>";
+    } */
+    ?>
+</table>
 </body>
 </html>
