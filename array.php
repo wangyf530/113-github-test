@@ -255,6 +255,53 @@ $stus=['judy'=>['95','64','70','90','84'],
         }
         echo "</td>";
     } */
+
+    // 表頭標題陣列
+    $headers = ['學生姓名', '國文', '英文', '數學', '地理', '歷史'];
+
+    echo "<table border='1' cellpadding='10'>";
+
+    // 用迴圈自動生成表頭
+    echo "<tr>";
+    foreach ($headers as $header) {
+        echo "<th>{$header}</th>";
+    }
+    echo "</tr>";
+
+
+    // 自動生成表頭
+    /* echo "<tr>";
+    echo "<th>學生姓名</th>"; // 第一欄為學生姓名
+
+    // 從第一位學生的科目成績中取得科目名稱
+    $firstStudent = reset($stus2); // 取得第一個學生的科目陣列
+    foreach ($firstStudent as $subject) {
+        foreach ($subject as $subjectName => $score) {
+            echo "<th>{$subjectName}</th>";
+        }
+    }
+    echo "</tr>"; */
+
+
+
+
+
+    // 生成每位學生的成績列
+    foreach ($stus2 as $name => $subjects) {
+        echo "<tr>";
+        echo "<td>{$name}</td>";
+
+        // 用於依次列出每個科目成績
+        foreach ($subjects as $subject) {
+            foreach ($subject as $score) {
+                echo "<td>{$score}</td>";
+            }
+        }
+
+        echo "</tr>";
+    }
+
+    echo "</table>";
     ?>
 </table>
 </body>
