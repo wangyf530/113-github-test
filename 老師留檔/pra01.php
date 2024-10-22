@@ -104,7 +104,7 @@ switch($level){
 
 <?php
 
-$year=2000;
+$year=2500;
 
 if($year%4==0){
     if($year%100==0){
@@ -131,7 +131,36 @@ if($year%4==0){
 echo "<hr>";
 echo "<h3> && </h3>";
 
-if($year%4==0){
+if($year%4==0 || ($year%100 == 0 && $year %400 != 0)){
+/*     $year%4==0 || ($year%100 == 0 && $year %400 != 0)==false ==> 閏年
+    2400  true  ||  (     true     &&        false) => false  => true 閏年
+    2500  true  ||  (     true     &&        true) => true  => true  閏年
+    2404  true  ||  (     false    &&        true) => false  =>true 閏年
+    2403  false ||  (     false    &&        true) => false  =>false 平年 
+
+    $year%4!=0 || ($year%100 == 0 && $year %400 != 0)==true  ==>平年  OK
+    2400  false ||  (      true     &&         false          ) =>false => false  閏年
+    2500  false ||  (      true     &&        true           )  =>true => true 平年
+    2404  false ||  (      false    &&         true             )=>false  false 閏年
+    2403  true  ||  (      false    &&         true           )=>false    true 平年*/
+
+   /* $year %4 ==0 && ($year%100 != 0 || $year %400 == 0)
+    2400    true   && (   false   ||   true   )  true  true 閏年
+    2500    true   && (   false   ||   false  )  false false 平年
+    2404    true   && (   true   ||   false   ) true   true 閏年
+    2403    false  && (   true   ||   false  ) true    false 平年
+
+
+    $year %4 ==0 || ($year%100 != 0 || $year %400 == 0)
+    $year %4 !=0  && ($year%100 != 0 || $year %400 == 0)
+        false    &&   (   false   ||   true   )  true    false
+        false    &&   (   false   ||   false  )  false  false
+        false    &&   (   true   ||   false   ) true    false 
+        true     &&   (   true   ||   false  ) true     true
+
+    $year %4 !=0  || ($year%100 != 0 || $year %400 == 0) */
+
+
     if($year%100 == 0 && $year %400 != 0){
         
             echo "西元";
@@ -166,6 +195,21 @@ if($year%4==0){
     echo $year;
     echo "是平年";
 }
+
+?>
+<hr>
+<?php
+echo "<h3> 簡化後 </h3>";
+if($year%4==0 && ($year%100 != 0 || $year %400 == 0)){
+    echo "西元";
+    echo $year;
+    echo "是閏年";
+}else{
+    echo "西元";
+    echo $year;
+    echo "是平年";
+}
+
 
 ?>
 <p>&nbsp;</p>
