@@ -132,21 +132,44 @@
         text-align: center;
         border:1px solid #999;
     }
+
+    .holiday{
+        background: pink;
+        color: red;
+    }
+
+    .grey-text{
+        color:#999;
+    }
+
+    .today{
+        background: blue;
+        color: white;
+        font-weight: bolder;
+    }
 </style>
 <table>
 <?php
-    $date = strtotime("2024-10");
-    $firstDayWeek= date("w",$date);
+    //$date = strtotime("2024-10");
+    // 當月第一天
+    $firstDay = date("Y-m-1");
+    $firstDayTime = strtotime($firstDay);
+    // 當月第一天是週幾
+    $firstDayWeek= date("w",$firstDayTime);
     // $firstDayWeek = date("w",strtotime(date("Y-m-1")));
     
     // 印月份 
-    $month = date('F',$date);
+    $month = date('F',$firstDayTime);
     echo "<tr> <td colspan=8>".$month."</td>";
     // 印週幾
     $day=[' ','日','一','二','三','四','五','六'];
     echo "<tr>";
     foreach ($day as $key) {
+        if ($key=='日' || $key =='六'){
+            echo "<td class='holiday'> $key </td>";
+        } else {
         echo "<td> $key </td>";
+        }
     }
     echo "</tr>";
 
@@ -157,20 +180,43 @@
     // 印日期
     for ($i=0; $i<6; $i++) { 
         echo "<tr>";
+        // 第幾週
         echo "<td>".($i+1)."</td>";
+        // for ($j=0; $j<7; $j++) { 
+        //     echo "<td>";
+        //     $dayNum = $i*7+$j+1-$firstDayWeek;
+        //     // 當月天數
+        //     $dayTotal = date("t");
+        //     // 確認是否是閏年的二月
+        //     if (date("n"==2)) {
+        //         $dayTotal+=date("L");
+        //     }
+        //     // 印日期 需同時滿足1-31
+        //     if ($dayNum>0 && $dayNum <= $dayTotal){
+        //         echo $dayNum;
+        //     }
+        //     echo "</td>";
+        // }
+
         for ($j=0; $j<7; $j++) { 
-            echo "<td>";
-            $dayNum = $i*7+$j+1-$firstDayWeek;
-            // 當月天數
-            $dayTotal = date("t");
-            // 確認是否是閏年的二月
-            if (date("n"==2)) {
-                $dayTotal+=date("L");
-            }
-            // 印日期 需同時滿足1-31
-            if ($dayNum>0 && $dayNum <= $dayTotal){
-                echo $dayNum;
-            }
+            // if($j == 0 || $j == 6){
+            //     echo "<td class = 'holiday'>";
+            // } else {
+            //     echo "<td>";
+            // }
+            $cell = $i*7 + $j - $firstDayWeek;
+            $theDayTime = strtotime("$cell days".$firstDay);
+            // 印出的日期月份是否與現在的月份相同
+            $theMonth = date("m",$theDayTime)==date("m")?"":"grey-text";
+            // 印出的日期月份是否是今天
+            $isToday = date("Y-m-d",$theDayTime)==date("Y-m-d")?"today":"";
+            // 印出的日期月份是否是周末
+            $isHoliday = ($w == 0 || $w == 6)?"holiday":"";
+            $w=date("w",$theDayTime);
+            echo "<td class = '$isHoliday $theMonth $isToday'>";
+        
+            // 把時間給php就會自動算出日期
+            echo date("m-d",$theDayTime);
             echo "</td>";
         }
         echo "</tr>";
